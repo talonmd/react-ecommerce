@@ -25,7 +25,15 @@ class ShopPage extends React.Component {
 
     const collectionRef = firestore.collection("collections")
 
-    collectionRef.onSnapshot(async (snapshot) => {
+    // this is also a way to get the data from firebase using their provided api endpoints
+    // however, it returns data that is very nested
+    // fetch(
+    //   "https://firestore.googleapis.com/v1/projects/react-ecommerce-db-7a41a/databases/(default)/documents/collections"
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data))
+
+    collectionRef.get().then((snapshot) => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot)
       updateCollections(collectionsMap)
       this.setState({ loading: false })
